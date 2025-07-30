@@ -28,7 +28,7 @@ def lambda_handler(event, context):
 
     try:
         # 1. Perform Sentiment Analysis using Amazon Comprehend
-        # Note: For very long texts, Comprehend has limits (e.g., 5000 bytes for sync operations).
+        # Note: For very long texts, Comprehend has limits 
         # For this project, assuming typical social media post length.
         sentiment_response = comprehend_client.detect_sentiment(
             Text=text_to_analyze,
