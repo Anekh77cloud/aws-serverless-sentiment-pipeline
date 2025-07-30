@@ -1,0 +1,22 @@
+❗ Problem
+When querying JSON files in S3 via Amazon Athena, you may encounter errors like:
+"HIVE_CURSOR_ERROR: Row is not a valid JSON Object - JSONException: A JSONObject text must end with '}' ..."
+
+💥 Root Cause
+  Athena expects each line in the JSON file to be a valid, self-contained JSON object — also known as JSON Lines (or .jsonl format). If your file is:
+      A single large JSON object or array
+      Pretty-printed/multi-line JSON
+      Contains trailing commas or malformed syntax
+          → Athena cannot parse it and throws an error.
+
+✅ Solution
+1)Use JSON Lines format:
+    Ensure the file has one JSON object per line, not an array.
+    Do not wrap the objects in [].
+    Example (3 lines = 3 records):
+            {"post_id":"1", "text":"Happy day", "sentiment":"POSITIVE"}
+            {"post_id":"2", "text":"So sad", "sentiment":"NEGATIVE"}
+            {"post_id":"3", "text":"Meh", "sentiment":"NEUTRAL"}
+
+✍️ Summary 
+Athena cannot parse standard JSON arrays. It requires JSON Lines format, where each line is a complete JSON object, without surrounding brackets ([]). You can convert your structured JSON using a Python script or online tools for compatibility.
