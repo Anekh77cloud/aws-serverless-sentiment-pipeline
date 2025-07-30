@@ -4,7 +4,7 @@ import os
 import uuid
 from datetime import datetime
 
-# Initialize AWS clients outside the handler for better performance (execution environment reuse)
+# Initialize AWS clients outside the handler for better performance 
 s3_client = boto3.client('s3')
 dynamodb = boto3.resource('dynamodb')
 lambda_client = boto3.client('lambda')
@@ -26,7 +26,7 @@ def lambda_handler(event, context):
             s3_object = s3_client.get_object(Bucket=bucket_name, Key=object_key)
             file_content = s3_object['Body'].read().decode('utf-8')
 
-            # --- Adjust this parsing logic based on your actual sample data format ---
+            
             # Assuming your S3 file contains a single JSON object like:
             # {"text": "This is a great product!", "author": "User123", "source": "Twitter"}
 
